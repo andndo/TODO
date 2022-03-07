@@ -54,19 +54,26 @@ function App() {
   const nextId = useRef(0);
 
   return (
-    <div>
+    <div class="main">
       <h1>Todo-List</h1>
-      <form onSubmit={onSubmit}>
+      <h3>Built with AnDoHyeon</h3>
+      <form onSubmit={onSubmit} id="form">
         <input
           type="Text"
           placeholder="쓰는곳"
           value={todo}
           onChange={onChange}
+          class="input"
         />
-        <button>추가하기</button>
-        <button onClick={handleReset}>리셋</button>
-        <hr />
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <button style={{
+          backgroundColor:"blue",
+          color: "white",
+          borderRadius: 5, 
+          marginLeft: 4
+        }}>추가하기</button>
+        <button onClick={handleReset} class="resetBtn">리셋</button>
+        <hr style={{width: '100%', height: '1px', marginTop: "10px",backgroundColor: "black"}}/>
+        <div style={{ display: "flex", flexDirection: "column" }} class="contents">
           {todos.map((item, index) => (
             <ul style={{ display: "inline-flex" }}>
               <li key={index}>{item.value}</li>
