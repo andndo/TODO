@@ -3,24 +3,50 @@ import React, { useState, useRef, useEffect } from "react";
 
 function App() {
   const [todo, setTodo] = useState("");
+  const [fix, setFix] = useState("");
   const [todos, setTodos] = useState([
     {
       id: 0,
-      value: "asfd",
+      value: "",
+      fix: false,
     },
   ]);
 
-  const onChange = (event) => {
-    setTodo(event.target.value);
+  function onFix(id) {
+    setTodos(
+      todos.map((item) => ({
+        ...item,
+        fix: item.id === id ? true : false,
+      }))
+    );
+  }
+
+  const onChange = (e) => {
+    setTodo(e.target.value);
   };
+
+  function inputFix(e) {
+    setFix(e.target.value);
+  }
+
+  function enterkey(item) {
+    if (window.event.key === "Enter") {
+      console.log(fix);
+      console.log(item);
+
+      setTodos(
+        todos.map((data) => ({
+          ...data,
+          value: data.id === item.id ? fix : data.value,
+          fix: false,
+        }))
+      );
+    }
+  }
 
   useEffect(() => {
     window.localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
-
-  const onRemove = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
 
   function handleRemove(index) {
     console.log(index);
@@ -38,8 +64,9 @@ function App() {
     const data = {
       id: nextId.current,
       value: todo,
+      fix: false,
     };
-    
+
     nextId.current += 1;
     setTodos((currentArray) => [...currentArray, data]);
 
@@ -91,9 +118,30 @@ function App() {
         >
           {todos.map((item) => (
             <ul style={{ display: "inline-flex" }}>
-              <li>{item.value}</li>
+              {item.fix ? (
+                <input
+                  value={fix}
+                  onChange={(e) => inputFix(e)}
+                  onKeyUp={() => enterkey(item)}
+                />
+              ) : (
+                <li>{item.value}</li>
+              )}
               <button
-                onClick={(e) => handleRemove(item.id)}
+                onClick={() => onFix(item.id)}
+                style={{
+                  backgroundColor: "blue",
+                  color: "#ffffff",
+                  borderRadius: 8,
+                  outline: "none",
+                  cursor: "pointer",
+                  border: 0,
+                }}
+              >
+                수정
+              </button>
+              <button
+                onClick={() => handleRemove(item.id)}
                 style={{
                   border: 0,
                   outline: "none",
