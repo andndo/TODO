@@ -3,7 +3,7 @@
   margin: 0;
 }
 body {
-  background-color: #D96C00;
+  background: linear-gradient(to bottom right, #ff8cff, #6afbee) fixed;
   width: 100%;
   height: 100%;
   display: flex;
@@ -66,15 +66,15 @@ ul {
   border-radius: 6px;
 }
 
-.resetBtn{
+.resetBtn {
   background-color: red;
-  color:#fff;
+  color: #fff;
   border-radius: 5px;
   margin-left: 6px;
 }
 
-.input{
+.input {
   border-radius: 5px;
   background-color: gray;
-  color:#fff;
+  color: #fff;
 }
